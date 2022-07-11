@@ -1,0 +1,38 @@
+:root {
+    --colorBackground1: #274156;
+    --colorBackground2: #1c6e8c2d;
+    --colorAccent1: #605856;
+    --colorAccent2: #D0CCD0;
+    --colorText: #FBFCFF;
+    font-size: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: var(--colorBackground1);
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    background-color: var(--colorAccent1);
+    color: var(--colorAccent2);
+    padding: 1rem;
+    padding-top: 0.6rem;
+}
+
+p {
+    font-size: 3rem;
+    color: var(--colorText);
+    background-color: var(--colorBackground2);
+    padding: 2rem;
+    margin: 2rem;
+    border-radius: 1rem;
+}
