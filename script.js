@@ -1,10 +1,27 @@
 const moves = ['ROCK', 'PAPER', 'SCISSORS']
+let pause = false
 
 let playerScore = 0;
 let computerScore = 0;
 
-document.addEventListener('keypress', game)
+const rockButton = document.getElementById('rock');
+const paperButton = document.getElementById('paper');
+const scissorsButton = document.getElementById('scissors');
 
+const playerScoreText = document.getElementById('player-score');
+const computerScoreText = document.getElementById('comptuter-score');
+
+updateScoreText();
+
+rockButton.addEventListener('click', function() {
+    if (pause === false) game(this);
+});
+paperButton.addEventListener('click', function() {
+    if (pause === false) game(this);
+});
+scissorsButton.addEventListener('click', function() {
+    if (pause === false) game(this);
+});
 
 function computerPlay() {
     let computerAnswer = "";
@@ -12,8 +29,8 @@ function computerPlay() {
     return(computerAnswer);
 }
 
-function playerPlay() {
-    const gameAnswer = prompt("Rock, Paper, Scissors. Which do you choose?");
+function playerPlay(i) {
+    const gameAnswer = i;
     inputUpperCase = convertStringToUpper(gameAnswer);
     if (moves.includes(inputUpperCase)) {
         return(inputUpperCase);
@@ -23,9 +40,9 @@ function playerPlay() {
     }
 }
 
-function playMatch() {
+function playMatch(playerMove) {
     const computerSelection = computerPlay();
-    const playerSelection = playerPlay();
+    const playerSelection = playerPlay(playerMove);
 
     if(playerSelection === "") {
         return
@@ -34,31 +51,19 @@ function playMatch() {
     console.log(winner);
     return(winner);
     }
-
-
 }
 
-function game() {
-    console.log('Is this fucking working?');
-    for (let i = 1; i > 0; i++) {
-        playMatch();
-        if (playerScore >= 5) {
-            console.log("You're the first to reach 5 games, congrats!");
-            resetScore();
-            break;
-        }
-        if (computerScore >= 5) {
-            console.log("Uh oh, the computer beat you 5 times, that's it!")
-            resetScore();
-            break;
-        }
-    }
+function game(move) {
+    playMatch(move.id);
+    updateScoreText();
+    checkForWin();
 }
 
 function resetScore() {
     playerScore = 0;
     computerScore = 0;
-    console.log('Both scores have been reset to zero, you\'re now ready to play!');
+    updateScoreText();
+    pause = false;
 }
 
 function convertStringToUpper(answer) {
@@ -90,7 +95,7 @@ function determineWinner(computer, player) {
                     ++computerScore;
                     return('but the enemy chose scissors! you lose!');
                 } else {
-                    ++playerScore;
+                    ++playerScore;                    
                     return('win');
                 }
             case 'SCISSORS':
@@ -101,9 +106,27 @@ function determineWinner(computer, player) {
                 } else {
                     ++playerScore;
                     return('win');
-                   
                 }
         }
     }
 }
+
+function updateScoreText() {
+    playerScoreText.textContent = `Player Score:     ${playerScore}`;
+    computerScoreText.textContent = `Computer Score:    ${computerScore}`;
+}
+
+function checkForWin() {
+    if (playerScore >= 5) {
+        pause = true;
+        playerScoreText.textContent = `Player Score:     ${playerScore}, You win!`;
+        setTimeout(resetScore, 2000);
+    }
+    if (computerScore >= 5) {
+        pause = true;
+        computerScoreText.textContent = `Computer Score:    ${computerScore}, You lose!`;
+        setTimeout(resetScore, 2000);
+    }
+}
+
 // rock > scissors > paper
