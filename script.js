@@ -49,13 +49,18 @@ function playMatch(playerMove) {
     } else {
     let winner = determineWinner(computerSelection, playerSelection);
     console.log(winner);
+    if (winner === 'tie') {
+        pause = true
+        playerScoreText.textContent = `It's a tie!`;
+        computerScoreText.textContent = `Choose again.`;
+        setTimeout(updateScoreText, 2000);
+    }
     return(winner);
     }
 }
 
 function game(move) {
     playMatch(move.id);
-    updateScoreText();
     checkForWin();
 }
 
@@ -84,27 +89,33 @@ function determineWinner(computer, player) {
                 console.log('You bashed with a rock!')
                 if (computer === "PAPER"){
                     ++computerScore;
+                    updateScoreText();
                     return('But alas, the enemy respondds with a slice of paper.');
                 } else {
                     ++playerScore;
+                    updateScoreText();
                     return('win');
                 }
             case 'PAPER':
                 console.log('You chose paper...')
                 if (computer === "SCISSORS"){
                     ++computerScore;
+                    updateScoreText();
                     return('but the enemy chose scissors! you lose!');
                 } else {
-                    ++playerScore;                    
+                    ++playerScore;
+                    updateScoreText();                    
                     return('win');
                 }
             case 'SCISSORS':
                 console.log('You chose scissors...')
                 if (computer === "ROCK"){
                     ++computerScore;
+                    updateScoreText();
                     return('but the computer responded with a rock! you lose!');
                 } else {
                     ++playerScore;
+                    updateScoreText();
                     return('win');
                 }
         }
@@ -112,8 +123,10 @@ function determineWinner(computer, player) {
 }
 
 function updateScoreText() {
+    pause = true;
     playerScoreText.textContent = `Player Score:     ${playerScore}`;
     computerScoreText.textContent = `Computer Score:    ${computerScore}`;
+    pause = false;
 }
 
 function checkForWin() {
