@@ -84,6 +84,16 @@ p {
     text-shadow: var(--colorBackground1) -3px 0px;
 }
 
+.choice:active,
+#rock:active,
+#paper:active,
+#scissors:active {
+    background-color: var(--colorAccent2);
+    color: var(--colorBackground1);
+    text-shadow: var(--colorBackground1) 3px 0px;
+    text-shadow: var(--colorBackground1) -3px 0px;
+}
+
 #rock {
     background-color: #3A0CA3;
 }
